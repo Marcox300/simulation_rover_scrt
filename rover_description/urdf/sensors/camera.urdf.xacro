@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="camera_sensor"
+               params="frame_prefix parent_link x y z roll pitch yaw horizontal_fov video_width video_height">
+
+    <!-- CAMERA LINK -->
+    <link name="${frame_prefix}_camera_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+    </link>
+
+    <!-- JOINT al robot -->
+    <joint name="${frame_prefix}_camera_joint" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="${frame_prefix}_camera_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+    </joint>
+
+    <!-- OPTICAL FRAME -->
+    <link name="${frame_prefix}_camera_optical_frame"/>
+
+    <joint name="${frame_prefix}_optical_joint" type="fixed">
+      <parent link="${frame_prefix}_camera_link"/>
+      <child link="${frame_prefix}_camera_optical_frame"/>
+      <origin xyz="0.101 0 0" rpy="-1.5708 0 -1.5708"/>
+    </joint>
+
+    <!-- GAZEBO SENSOR -->
+    <gazebo reference="${frame_prefix}_camera_link">
+      <sensor name="${frame_prefix}_sensor" type="camera">
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+
+        <topic>/${frame_prefix}/image</topic>
+
+        <camera>
+          <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
+
+          <image>
+            <width>${video_width}</width>
+            <height>${video_height}</height>
+            <format>R8G8B8</format>
+          </image>
+
+          <clip>
+            <near>0.10</near>
+            <far>15.0</far>
+          </clip>
+
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+
+          <!-- AHORA CORRECTO -->
+          <optical_frame_id>${frame_prefix}_camera_optical_frame</optical_frame_id>
+
+        </camera>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

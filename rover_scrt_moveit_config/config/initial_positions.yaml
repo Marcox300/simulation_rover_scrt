@@ -1,0 +1,9 @@
+# Default initial positions for rover_scrt's ros2_control fake system
+
+initial_positions:
+  sctr_antebrazo_link_joint: 0
+  sctr_brazo_link_joint: 0
+  sctr_mano_link_joint: 0
+  sctr_muneca_link_joint: 0
+  sctr_pinza1_link_joint: 0
+  sctr_pinza2_link_joint: 0

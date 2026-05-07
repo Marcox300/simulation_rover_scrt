@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="robot_arm" params="prefix">
+
+    <link name="${prefix}_torso_link">
+      <collision name="${prefix}_torso_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.001.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="6.86539" ixy="0.00000" ixz="0.00000" iyy="6.86539" iyz="0.00000" izz="0.39744"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+        <mass value="20.00000"/>
+      </inertial>
+      <visual name="${prefix}_torso">
+        <material name="blanco"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.001.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_brazo_link">
+      <collision name="${prefix}_brazo_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.006.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.15130" ixy="-0.00000" ixz="0.00000" iyy="3.81929" iyz="0.00000" izz="3.92181"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.53436 0.00000 0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_brazo">
+        <material name="blanco"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.006.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_antebrazo_link">
+      <collision name="${prefix}_antebrazo_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.004.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.15427" ixy="0.00000" ixz="0.46915" iyy="6.38444" iyz="0.00000" izz="6.36473"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.78086 0.00000 -0.00747"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_antebrazo">
+        <material name="blanco"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.004.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_muneca_link">
+      <collision name="${prefix}_muneca_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.009.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.02654" ixy="0.00000" ixz="-0.00000" iyy="0.02654" iyz="0.00000" izz="0.03974"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <mass value="2.00000"/>
+      </inertial>
+      <visual name="${prefix}_muneca">
+        <material name="blanco"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cylinder.009.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_mano_link">
+      <collision name="${prefix}_mano_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.016.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="17.81430" ixy="0.00000" ixz="0.00000" iyy="18.12110" iyz="0.00000" izz="0.52940"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 1.20354"/>
+        <mass value="15.00000"/>
+      </inertial>
+      <visual name="${prefix}_mano">
+        <material name="blanco"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.016.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- JOINTS SIN CAMBIOS -->
+    <joint name="${prefix}_torso_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.95194 -0.00006 1.29287"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_torso_link"/>
+    </joint>
+
+    <joint name="${prefix}_brazo_link_joint" type="revolute">
+      <limit lower="-3.14000" upper="3.14000" effort="500" velocity="20"/>
+      <origin xyz="0 0 1.1"/>
+      <parent link="${prefix}_torso_link"/>
+      <child link="${prefix}_brazo_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="${prefix}_antebrazo_link_joint" type="revolute">
+      <limit lower="-2.75" upper="2.75" effort="500" velocity="20"/>
+      <origin xyz="1.5 0 0.2"/>
+      <parent link="${prefix}_brazo_link"/>
+      <child link="${prefix}_antebrazo_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="${prefix}_muneca_link_joint" type="revolute">
+      <limit lower="-3.14" upper="3.14" effort="500" velocity="20"/>
+      <origin xyz="1.5 0 0.2"/>
+      <parent link="${prefix}_antebrazo_link"/>
+      <child link="${prefix}_muneca_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="${prefix}_mano_link_joint" type="prismatic">
+      <limit lower="-1.5" upper="1.7" effort="500" velocity="20"/>
+      <origin xyz="0 0 -2.5"/>
+      <parent link="${prefix}_muneca_link"/>
+      <child link="${prefix}_mano_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

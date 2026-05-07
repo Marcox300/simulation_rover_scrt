@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="base_robot" params="prefix">
+
+     <link name="base_footprint"/>
+
+    <!-- distancia 1.41789 hacia abajo desde chasis -->
+    <joint name="base_footprint_joint" type="fixed">
+      <origin xyz="0 0 1.41789" rpy="0 0 0"/>
+      <parent link="base_footprint"/>
+      <child link="${prefix}_base_link"/>
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <collision name="${prefix}_chasis_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.002.dae" scale="1.00000 0.53333 0.16667"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="25.13839" ixy="-0.04550" ixz="7.29840" iyy="63.71397" iyz="0.01207" izz="64.35904"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.01084 -0.00017 0.00716"/>
+        <mass value="80.00000"/>
+      </inertial>
+      <visual name="${prefix}_chasis">
+        <material name="ventana"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.002.dae" scale="1.00000 0.53333 0.16667"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_left_b_link">
+      <collision name="${prefix}_left_b_collision">
+        <origin rpy="1.57080 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.001.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.23128" ixy="-0.00000" ixz="0.00000" iyy="2.31374" iyz="-0.00000" izz="2.13908"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.22222 0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_left_b">
+        <material name="eje"/>
+        <origin rpy="1.57080 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.001.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_maletero_base_link">
+      <collision name="${prefix}_maletero_base_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.020.dae" scale="12.00000 10.00000 2.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="3.46667" ixy="0.00000" ixz="0.00000" iyy="4.93334" iyz="0.00000" izz="8.13334"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_maletero_base">
+        <material name="caja"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.020.dae" scale="12.00000 10.00000 2.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_maletero1_link">
+      <collision name="${prefix}_maletero1_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.026.dae" scale="12.00000 1.00000 3.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.16667" ixy="0.00000" ixz="0.00000" iyy="2.55000" iyz="0.00000" izz="2.41667"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="${prefix}_maletero1">
+        <material name="caja"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.026.dae" scale="12.00000 1.00000 3.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_maletero2_link">
+      <collision name="${prefix}_maletero2_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.027.dae" scale="12.00000 1.00000 3.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.16667" ixy="0.00000" ixz="0.00000" iyy="2.55000" iyz="0.00000" izz="2.41667"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="${prefix}_maletero2">
+        <material name="caja"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.027.dae" scale="12.00000 1.00000 3.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_maletero3_link">
+      <collision name="${prefix}_maletero3_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.028.dae" scale="1.00000 10.00000 3.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="1.81667" ixy="0.00000" ixz="0.00000" iyy="0.16667" iyz="0.00000" izz="1.68333"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="${prefix}_maletero3">
+        <material name="caja"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.028.dae" scale="1.00000 10.00000 3.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_maletero4_link">
+      <collision name="${prefix}_maletero4_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.029.dae" scale="1.00000 10.00000 3.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="1.81667" ixy="0.00000" ixz="0.00000" iyy="0.16667" iyz="0.00000" izz="1.68333"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="${prefix}_maletero4">
+        <material name="caja"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.029.dae" scale="1.00000 10.00000 3.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_right_b_link">
+      <collision name="${prefix}_right_b_collision">
+        <origin rpy="1.57080 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.005.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.23128" ixy="-0.00000" ixz="0.00000" iyy="2.31374" iyz="-0.00000" izz="2.13908"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.22222 -0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_right_b">
+        <material name="eje"/>
+        <origin rpy="1.57080 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.005.dae" scale="1.00000 1.00000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_left_b_link_joint" type="fixed">
+      <origin rpy="-1.57080 0.00000 0.00000" xyz="-0.74717 0.59994 -0.59938"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_left_b_link"/>
+    </joint>
+
+    <joint name="${prefix}_maletero_base_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.82794 -0.00006 0.39289"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_maletero_base_link"/>
+    </joint>
+
+    <joint name="${prefix}_maletero1_link_joint" type="fixed">
+      <parent link="${prefix}_maletero_base_link"/>
+      <child link="${prefix}_maletero1_link"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00134 0.90064 0.48187"/>
+    </joint>
+
+    <joint name="${prefix}_maletero2_link_joint" type="fixed">
+      <parent link="${prefix}_maletero_base_link"/>
+      <child link="${prefix}_maletero2_link"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00134 -0.90356 0.48187"/>
+    </joint>
+
+    <joint name="${prefix}_maletero3_link_joint" type="fixed">
+      <parent link="${prefix}_maletero_base_link"/>
+      <child link="${prefix}_maletero3_link"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-1.10804 -0.00000 0.47973"/>
+    </joint>
+
+    <joint name="${prefix}_maletero4_link_joint" type="fixed">
+      <parent link="${prefix}_maletero_base_link"/>
+      <child link="${prefix}_maletero4_link"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="1.08741 -0.00000 0.47973"/>
+    </joint>
+
+    <joint name="${prefix}_right_b_link_joint" type="fixed">
+      <origin rpy="-1.57080 0.00000 0.00000" xyz="-0.74717 -0.60006 -0.59938"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_right_b_link"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

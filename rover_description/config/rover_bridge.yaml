@@ -1,0 +1,41 @@
+# CLOCK
+- ros_topic_name: "clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+  lazy: false
+
+
+# TF (transformaciones)
+- ros_topic_name: "tf"
+  gz_topic_name: "/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+  lazy: false
+
+# IMU
+- ros_topic_name: "imu/data"
+  gz_topic_name: "/imu/data"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+  lazy: false
+
+
+# LIDAR 
+- ros_topic_name: "front_laser/points"
+  gz_topic_name: "/front_laser/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
+  lazy: false
+
+# GPS
+#- ros_topic_name: "/gps/fix"
+#  gz_topic_name: "/gps"
+#  ros_type_name: "sensor_msgs/msg/NavSatFix"
+#  gz_type_name: "gz.msgs.NavSat"
+#  direction: GZ_TO_ROS
+#  lazy: false

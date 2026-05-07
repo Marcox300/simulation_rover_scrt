@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="gripper" params="prefix">
+
+    <link name="${prefix}_grap_pose"/>
+
+    <link name="${prefix}_pinza1_link">
+      <collision name="${prefix}_pinza1_collision">
+        <origin rpy="0.00000 -1.57080 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.013.dae" scale="0.50000 1.00000 2.50000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.04833" ixy="0.00000" ixz="0.00000" iyy="0.04333" iyz="0.00000" izz="0.00833"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="2.00000"/>
+      </inertial>
+      <visual name="${prefix}_pinza1">
+        <material name="pinza"/>
+        <origin rpy="0.00000 -1.57080 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.013.dae" scale="0.50000 1.00000 2.50000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_pinza2_link">
+      <collision name="${prefix}_pinza2_collision">
+        <origin rpy="0.00000 1.57080 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.035.dae" scale="0.50000 1.00000 2.50000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.04833" ixy="0.00000" ixz="0.00000" iyy="0.04333" iyz="0.00000" izz="0.00833"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="2.00000"/>
+      </inertial>
+      <visual name="${prefix}_pinza2">
+        <material name="pinza"/>
+        <origin rpy="0.00000 1.57080 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://rover_description/meshes/dae/Cube.035.dae" scale="0.50000 1.00000 2.50000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- JOINTS -->
+
+    <joint name="${prefix}_grap_pose_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00033 0.00000 -0.30469"/>
+      <parent link="${prefix}_mano_link"/>
+      <child link="${prefix}_grap_pose"/>
+    </joint>
+
+    <joint name="${prefix}_pinza1_link_joint" type="prismatic">
+      <limit lower="0.00000" upper="0.20000" effort="100" velocity="10"/>
+      <origin rpy="0.00000 1.57080 0.00000" xyz="-0.35109 0.00000 -0.24469"/>
+      <parent link="${prefix}_mano_link"/>
+      <child link="${prefix}_pinza1_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="${prefix}_pinza2_link_joint" type="prismatic">
+      <limit lower="0.00000" upper="0.20000" effort="100" velocity="10"/>
+      <origin rpy="0.00000 -1.57080 0.00000" xyz="0.34683 0.00000 -0.24469"/>
+      <parent link="${prefix}_mano_link"/>
+      <child link="${prefix}_pinza2_link"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

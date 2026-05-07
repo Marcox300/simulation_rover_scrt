@@ -1,0 +1,12 @@
+ros2 run xacro xacro src/rover_description/robots/robot.urdf.xacro > robot.urdf
+
+lanzar gazebo:
+ros2 launch rover_description robot_gazebo.launch.py world_name:=urjc_excavation_msr
+
+ros2 launch rover_scrt_moveit_config move_group.launch.py
+
+ros2 launch rover_description robot_controllers.launch.py
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+ros2 control list_controllers

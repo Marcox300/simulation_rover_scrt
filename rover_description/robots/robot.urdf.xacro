@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<robot name="rover_scrt" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- INCLUDES -->
+
+  <xacro:include filename="$(find rover_description)/urdf/base/base.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/arm/arm.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/arm/gripper.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/wheels/wheels.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/materials/materials.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/sensors/imu.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/sensors/camera.urdf.xacro"/>
+  <xacro:include filename="$(find rover_description)/urdf/sensors/lidar.urdf.xacro"/>
+
+  <!-- ARGS -->
+
+  <xacro:arg name="prefix" default="sctr"/>
+  <xacro:arg name="robot_ns" default=""/>
+
+  <!-- ROBOT BASE -->
+
+  <xacro:base_robot prefix="$(arg prefix)"/>
+
+  <!--ROBOT ARM -->
+
+  <xacro:robot_arm prefix="$(arg prefix)"/>
+
+  <!-- GRIPPER -->
+
+  <xacro:gripper prefix="$(arg prefix)"/>
+
+  <!-- WHEELS -->
+
+  <!-- Front wheel (rueda.001) -->
+  <xacro:wheel
+      prefix="rueda_001"
+      parent_link="$(arg prefix)_base_link"
+      num="'001'"
+      jx="1.34351" jy="-0.87461" jz="-1.00777"
+      ox="-1.57080" oy="0" oz="0"
+      vx="1.57080" vy="0" vz="0"
+      cx="1.57080" cy="0" cz="0"
+      ix="0" iy="0" iz="0"
+      ixx="0.19937" iyy="0.34484" izz="0.19937"
+      wheel_mass="5.0"/>
+
+  <!-- Front wheel right (rueda.006) -->
+  <xacro:wheel
+      prefix="rueda_006"
+      parent_link="$(arg prefix)_base_link"
+      num="'009'"
+      jx="1.34351" jy="0.84452" jz="-1.00777"
+      ox="-1.57080" oy="0" oz="0"
+      vx="1.57080" vy="0" vz="0"
+      cx="1.57080" cy="0" cz="0"
+      ix="0" iy="0" iz="0"
+      ixx="0.19937" iyy="0.34484" izz="0.19937"
+      wheel_mass="5.0"/>
+
+  <!-- Rear right ($(arg prefix)_right_b_link) -->
+  <xacro:wheel
+    prefix="rueda_002"
+    parent_link="$(arg prefix)_right_b_link"
+    num="'002'"
+    jx="0.80290" jy="0.40839" jz="-0.27455"
+    ox="0" oy="0" oz="0"
+    vx="1.57080" vy="0" vz="0"
+    cx="1.57080" cy="0" cz="0"
+    ix="0" iy="0" iz="0"
+    ixx="0.19937" iyy="0.34484" izz="0.19937"
+    wheel_mass="5.0"/>
+
+  <xacro:wheel
+    prefix="rueda_003"
+    parent_link="$(arg prefix)_right_b_link"
+    num="'003'"
+    jx="-0.79799" jy="0.40839" jz="-0.27455"
+    ox="0" oy="0" oz="0"
+    vx="1.57080" vy="0" vz="0"
+    cx="1.57080" cy="0" cz="0"
+    ix="0" iy="0" iz="0"
+    ixx="0.19937" iyy="0.34484" izz="0.19937"
+    wheel_mass="5.0"/>
+
+  <!-- Rear left ($(arg prefix)_left_b_link) -->
+  <xacro:wheel
+      prefix="rueda_004"
+      parent_link="$(arg prefix)_left_b_link"
+      num="'007'"
+      jx="-0.79799" jy="0.40839" jz="0.24458"
+      ox="0" oy="0" oz="0"
+      vx="1.57080" vy="0" vz="0"
+      cx="1.57080" cy="0" cz="0"
+      ix="0" iy="0" iz="0"
+      ixx="0.19937" iyy="0.34484" izz="0.19937"
+      wheel_mass="5.0"/>
+
+  <xacro:wheel
+      prefix="rueda_005"
+      parent_link="$(arg prefix)_left_b_link"
+      num="'008'"
+      jx="0.80290" jy="0.40839" jz="0.24458"
+      ox="0" oy="0" oz="0"
+      vx="1.57080" vy="0" vz="0"
+      cx="1.57080" cy="0" cz="0"
+      ix="0" iy="0" iz="0"
+      ixx="0.19937" iyy="0.34484" izz="0.19937"
+      wheel_mass="5.0"/>
+
+
+
+  <!-- SENSORS -->
+  <xacro:imu_sensor
+    prefix="$(arg prefix)"
+    parent_link="$(arg prefix)_base_link"
+    topic="/imu"/>
+
+  <xacro:camera_sensor
+    frame_prefix="front_camera"
+    parent_link="$(arg prefix)_base_link"
+    x="1.4" y="0.0" z="0.1"
+    roll="0" pitch="0" yaw="0"
+    horizontal_fov="80"
+    video_width="1280"
+    video_height="720"/>
+
+  <xacro:camera_sensor
+    frame_prefix="arm_camera"
+    parent_link="$(arg prefix)_mano_link"
+    x="0.0" y="0.0" z="-0.05"
+    roll="0" pitch="1.57" yaw="0"
+    horizontal_fov="80"
+    video_width="1280"
+    video_height="720"/>
+
+  <xacro:lidar_sensor
+    prefix="$(arg prefix)"
+    parent_link="$(arg prefix)_base_link"
+    x="1.4" y="0.0" z="0"/>
+
+
+  <!-- Gazebo ROS control plugins -->
+    <xacro:include filename="$(find rover_description)/urdf/ros2_control.urdf.xacro"/>
+    <xacro:arg name="config_controllers" default="$(find rover_description)/config/robot_controllers.yaml"/>
+    <xacro:arg name="update_rate" default="20"/>
+    <xacro:ros2_control/>
+
+
+</robot>
