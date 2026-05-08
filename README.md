@@ -194,7 +194,7 @@ Uno de los principales problemas observados en la simulación es la capacidad de
 
 En particular, durante la fase de cierre, las articulaciones del gripper presentan desplazamientos hacia configuraciones no previstas, lo que provoca inestabilidad en la sujeción de los objetos. Este comportamiento afecta directamente a la fiabilidad de la tarea de pick and place en determinadas ejecuciones. Esto es posiblemente aleatorio poratanto no puedo garantizar que una misma ejecución afecte de la misma manera.
 
-## 4. Enlaces del proyecto
+## 6. Enlaces del proyecto
 
 Repositorio principal del proyecto:
 
