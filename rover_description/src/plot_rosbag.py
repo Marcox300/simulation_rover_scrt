@@ -42,12 +42,20 @@ effort_data = {}
 
 imu_acc = []
 
+# tiempo base
+t0 = None
+
 # leer rosbag
 while reader.has_next():
 
     topic, data, t = reader.read_next()
 
     t = t * 1e-9
+
+    if t0 is None:
+        t0 = t
+
+    t = t - t0
 
     # joint states
     if topic == "/joint_states":
