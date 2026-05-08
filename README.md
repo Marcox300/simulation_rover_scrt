@@ -161,7 +161,7 @@ Esto puede deberse a un error puntual de muestreo o a una transición brusca dur
 
 ---
 
-## 5. Capturas de simulación
+## 4. Capturas de simulación
 
 En esta sección se muestran las capturas de la simulación correspondientes a ambos rosbag utilizados en el análisis.
 
@@ -188,8 +188,18 @@ En esta sección se muestran las capturas de la simulación correspondientes a a
 
 ---
 
-## 6. Conclusiones
+## 5. Conclusiones
 
 Uno de los principales problemas observados en la simulación es la capacidad de agarre del gripper. Se han realizado distintos ajustes en los parámetros de fricción y rozamiento con el objetivo de mejorar la estabilidad del agarre, sin embargo, el problema principal parece derivar de un comportamiento no deseado en el cierre de la pinza.
 
 En particular, durante la fase de cierre, las articulaciones del gripper presentan desplazamientos hacia configuraciones no previstas, lo que provoca inestabilidad en la sujeción de los objetos. Este comportamiento afecta directamente a la fiabilidad de la tarea de pick and place en determinadas ejecuciones. Esto es posiblemente aleatorio poratanto no puedo garantizar que una misma ejecución afecte de la misma manera.
+
+## 4. Enlaces del proyecto
+
+Repositorio principal del proyecto:
+
+https://github.com/Marcox300/simulation_rover_scrt
+
+Entorno de simulación utilizado (Gazebo world):
+
+https://github.com/juanscelyg/urjc-excavation-world
