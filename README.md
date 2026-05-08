@@ -126,6 +126,9 @@ en cualquier caso, el movimiento se divide en:
 3. agarrar el cubo azul  
 4. depositar el cubo azul sobre el rojo
 
+En conclusión, el sistema todavía requiere una mejor amortiguación para conseguir movimientos completamente suaves en las articulaciones del robot. 
+Aun así, la simulación se ejecuta aproximadamente a un 80% de la velocidad de tiempo real (RT), por lo que los movimientos percibidos resultan relativamente suaves y estables durante la ejecución.
+
 - Rosbag 1  
 ![gasto_rosbag1](https://github.com/Marcox300/simulation_rover_scrt/blob/main/rover_description/data/img/rosbag_1/plot_gasto.png)
 
