@@ -30,89 +30,165 @@ converter_options = ConverterOptions(
 
 reader.open(storage_options, converter_options)
 
-# inicializar estructuras de datos
+# estructuras de datos
 t_joint = []
 t_imu = []
 
 wheel_data = {}
+scara_data = {}
+gripper_data = {}
+
 effort_data = {}
 
 imu_acc = []
 
 # leer rosbag
 while reader.has_next():
+
     topic, data, t = reader.read_next()
 
     t = t * 1e-9
 
     # joint states
     if topic == "/joint_states":
+
         msg = deserialize_message(data, JointState)
 
         t_joint.append(t)
 
         for i, name in enumerate(msg.name):
 
+            pos = msg.position[i]
+            eff = abs(msg.effort[i])
+
             # ruedas
             if "wheel" in name or "rueda" in name:
+
                 if name not in wheel_data:
                     wheel_data[name] = []
-                wheel_data[name].append(msg.position[i])
 
-            # esfuerzo
+                wheel_data[name].append(pos)
+
+            # brazo scara
+            elif (
+                ("joint" in name or "scara" in name)
+                and "pinza" not in name
+                and "gripper" not in name
+                and "wheel" not in name
+                and "rueda" not in name
+            ):
+
+                if name not in scara_data:
+                    scara_data[name] = []
+
+                scara_data[name].append(pos)
+
+            # gripper
+            if "pinza" in name or "gripper" in name:
+
+                if name not in gripper_data:
+                    gripper_data[name] = []
+
+                gripper_data[name].append(pos)
+
+            # esfuerzos
             if name not in effort_data:
                 effort_data[name] = []
-            effort_data[name].append(abs(msg.effort[i]))
+
+            effort_data[name].append(eff)
 
     # imu
-    elif topic == "/imu/data":
+    elif topic == "/imu":
+
         msg = deserialize_message(data, Imu)
 
         ax = msg.linear_acceleration.x
         ay = msg.linear_acceleration.y
         az = msg.linear_acceleration.z
 
-        imu_acc.append(np.sqrt(ax**2 + ay**2 + az**2))
+        acc = np.sqrt(ax**2 + ay**2 + az**2)
+
+        imu_acc.append(acc)
         t_imu.append(t)
 
-# calcular gasto total
+# calcular gasto total solo del pick and place
 G = []
 
-min_len = min([len(v) for v in effort_data.values()]) if effort_data else 0
+pick_effort_data = {}
+
+for name, values in effort_data.items():
+
+    if (
+        ("joint" in name or "scara" in name or "pinza" in name or "gripper" in name)
+        and "wheel" not in name
+        and "rueda" not in name
+    ):
+        pick_effort_data[name] = values
+
+min_len = min([len(v) for v in pick_effort_data.values()]) if pick_effort_data else 0
 
 for i in range(min_len):
+
     total = 0
-    for name in effort_data:
-        if i < len(effort_data[name]):
-            total += effort_data[name][i]
+
+    for name in pick_effort_data:
+
+        if i < len(pick_effort_data[name]):
+            total += pick_effort_data[name][i]
+
     G.append(total)
 
 t_g = t_joint[:len(G)]
 
-# plot ruedas
+# figura 1 ruedas
 plt.figure()
 
 for name, values in wheel_data.items():
+
     n = min(len(t_joint), len(values))
+
     plt.plot(t_joint[:n], values[:n], label=name)
 
-plt.title("posición de ruedas vs tiempo")
+plt.title("posicion ruedas vs tiempo")
 plt.xlabel("tiempo (s)")
-plt.ylabel("posición (rad)")
+plt.ylabel("posicion (rad)")
 plt.grid()
 plt.legend()
 
-# plot imu
+# figura 2 scara + gripper posiciones
 plt.figure()
+
+for name, values in scara_data.items():
+
+    n = min(len(t_joint), len(values))
+
+    plt.plot(t_joint[:n], values[:n], label=name)
+
+for name, values in gripper_data.items():
+
+    n = min(len(t_joint), len(values))
+
+    plt.plot(t_joint[:n], values[:n], linestyle='--', label=name)
+
+plt.title("joints scara y gripper vs tiempo")
+plt.xlabel("tiempo (s)")
+plt.ylabel("posicion")
+plt.grid()
+plt.legend()
+
+# figura 3 imu
+plt.figure()
+
 plt.plot(t_imu, imu_acc)
 
-plt.title("aceleración vs tiempo")
+plt.title("aceleracion vs tiempo")
 plt.xlabel("tiempo (s)")
-plt.ylabel("aceleración (m/s^2)")
+plt.ylabel("aceleracion (m/s^2)")
 plt.grid()
 
-# plot gasto
+# figura 4 gasto total pick and place
 plt.figure()
+
 plt.plot(t_g, G)
 
 plt.title("gasto del mecanismo pick and place")
@@ -120,14 +196,35 @@ plt.xlabel("tiempo (s)")
 plt.ylabel("g_parcial")
 plt.grid()
 
+# figura 5 fuerzas individuales scara + gripper
+plt.figure()
+
+for name, values in pick_effort_data.items():
+
+    n = min(len(t_joint), len(values))
+
+    if "pinza" in name or "gripper" in name:
+        plt.plot(t_joint[:n], values[:n], linestyle='--', label=name)
+
+    else:
+        plt.plot(t_joint[:n], values[:n], label=name)
+
+plt.title("fuerzas individuales scara y gripper")
+plt.xlabel("tiempo (s)")
+plt.ylabel("fuerza / esfuerzo")
+plt.grid()
+plt.legend()
+
 # estadisticas
-print("estadísticas gasto")
+print("estadisticas gasto")
 
 if len(G) > 0:
+
     print("media:", np.mean(G))
     print("max:", np.max(G))
     print("std:", np.std(G))
     print("total:", np.sum(G))
+
 else:
     print("no hay datos de esfuerzo")
 

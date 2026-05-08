@@ -10,3 +10,6 @@ ros2 launch rover_description robot_controllers.launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ros2 control list_controllers
+
+source /opt/ros/jazzy/setup.bash 
+source install/setup.bash
