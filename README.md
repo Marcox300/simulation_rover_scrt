@@ -1,5 +1,5 @@
 # Simulation_rover_scrt
-# Práctica 3 - Modelado y Simulación de Robots (GIRS)
+# Práctica 3 - Modelado y Simulación de Robots
 
 ## 1. Lanzamiento del sistema y información del proyecto
 
