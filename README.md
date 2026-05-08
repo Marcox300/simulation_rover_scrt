@@ -190,3 +190,6 @@ En esta sección se muestran las capturas de la simulación correspondientes a a
 
 ## 6. Conclusiones
 
+Uno de los principales problemas observados en la simulación es la capacidad de agarre del gripper. Se han realizado distintos ajustes en los parámetros de fricción y rozamiento con el objetivo de mejorar la estabilidad del agarre, sin embargo, el problema principal parece derivar de un comportamiento no deseado en el cierre de la pinza.
+
+En particular, durante la fase de cierre, las articulaciones del gripper presentan desplazamientos hacia configuraciones no previstas, lo que provoca inestabilidad en la sujeción de los objetos. Este comportamiento afecta directamente a la fiabilidad de la tarea de pick and place en determinadas ejecuciones. Esto es posiblemente aleatorio poratanto no puedo garantizar que una misma ejecución afecte de la misma manera.
